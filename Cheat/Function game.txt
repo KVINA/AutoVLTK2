@@ -1,0 +1,26 @@
+call 00664EC0: Function ẩn tất cả các button 
+call 0x0066E3D0: Function Show Select Server
+
+
+0-0:0-0
+0-1:1-0
+0-2:2-0
+1-0:0-1
+1-1:1-1
+2-0
+2-1
+
+
+mov ecx,065F58A8 //Name server
+mov edi,4 //Index server
+mov edx,1 //Cum may chu
+
+push ecx
+push edi
+push edx
+
+call 0066D100
+call 0066F9D0
+
+call 0066D010
+ret

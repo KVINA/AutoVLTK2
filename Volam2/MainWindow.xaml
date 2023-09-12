@@ -1,0 +1,34 @@
+﻿<Window x:Class="Volam2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Volam2"
+        mc:Ignorable="d" 
+        Title="MainWindow" Height="450" Width="218">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" Width="200">
+            <StackPanel Margin="2">
+                <TextBlock Text="Chọn Cụm Máy Chủ"/>
+                <ComboBox Name="txt_CMC" DropDownClosed="txt_CMC_DropDownClosed"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="Chọn Server"/>
+                <ComboBox Name="txt_server" />
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="Tài khoản"/>
+                <TextBox Name="txt_account" Padding="2" Text="gauchoithuyyenvutien"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="Mật khẩu"/>
+                <PasswordBox Name="txt_password" Padding="2" Password="Fx1y6uytuh"/>
+            </StackPanel>
+
+            <Button Content="Bắt đầu" Click="Button_Click" Margin="2"/>
+        </StackPanel>
+    </Grid>
+</Window>
