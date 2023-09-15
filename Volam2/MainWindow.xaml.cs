@@ -40,14 +40,20 @@ namespace Volam2
         {
             if (txt_server.SelectedItem is ServerInfo server && txt_CMC.SelectedItem is CMC_Info cmc)
             {
+                var process = new Process();
+                process.StartInfo.FileName = "so2game.exe";
+                process.StartInfo.WorkingDirectory = "C:\\Users\\Developer Net\\Desktop\\Vl2";
+                process.Start();
+                process.WaitForInputIdle();
                 // Định danh tiến trình đích bằng ProcessID
-                var process = Process.GetProcessesByName("so2game").First();
+                //var process = Process.GetProcessesByName("so2game").First();
                 // Mở tiến trình đích
                 IntPtr hProcess = MemoryHelper.GetHandleProcess(process.Id);
 
                 INFO_VL2.Call_StartGame(hProcess);
+                
                 INFO_VL2.Call_SelectServer(hProcess, cmc, server);
-                INFO_VL2.LoginGame(process, hProcess, txt_account.Text.Trim(),txt_password.Password.Trim()) ;
+                INFO_VL2.LoginGame(process, hProcess, txt_account.Text.Trim(), txt_password.Password.Trim());
             }
             else
             {

@@ -1,0 +1,10 @@
+20230915-205557<DEBUG:00000AC8>: KGLOG_PROCESS_ERROR(m_hModule) at line 24 in DebugHelp::Init
+20230915-205557<DEBUG:00000AC8>: KGLOG_PROCESS_ERROR(nRetCode) at line 39 in SystemDumpFile::Init
+20230915-205557<DEBUG:00000AC8>: √ª”–’“µΩ¿∂∆¡Dump
+20230915-205557<DEBUG:00000AC8>: KGLOG_PROCESS_SUCCESS(!nSendActiveMachineFlag && !nSendExceptionNotCapture) at line 215 in Dumper::ProcessActiveMachineAndExceptionNotCapture
+20230915-205557<DEBUG:00000AC8>: Dumper Init:Success
+20230915-205558<INFO :000018B4>: Name:c:\users\developer net\desktop\vl2\so2game.exe	Base:00400000	Offset:0065B2F2	Stack:0065B2F2
+20230915-205558<INFO :000018B4>: Name:c:\windows\system32\ntdll.dll	Base:77A20000	Offset:77A87B1E	Stack:77A87B1E
+20230915-205558<INFO :000018B4>: Name:c:\windows\system32\ntdll.dll	Base:77A20000	Offset:77A87AEE	Stack:77A87AEE
+20230915-205558<DEBUG:000018B4>: KGLOG_PROCESS_ERROR(nRetCode) at line 110 in DumpModuleAnalyzer::MoveStack
+20230915-205558<DEBUG:000018B4>: ExceptionCrashReportXmlFile	C:\Users\Developer Net\Desktop\Vl2\minidump\373b60b4-cfee-4c46-bc50-938472c7f840.xml 

@@ -1,0 +1,1 @@
+WsaSend xuất hiện trong "Enter expression to follow" trong x32dbg khi đang debug một chương trình, điều này có thể nghĩa là bạn đang theo dõi giá trị hoặc trạng thái của hàm này trong quá trình thực thi chương trình, có thể để theo dõi việc gửi dữ liệu qua mạng trong ứng dụng của bạn hoặc để xác định lỗi liên quan đến việc gửi dữ liệu mạng.

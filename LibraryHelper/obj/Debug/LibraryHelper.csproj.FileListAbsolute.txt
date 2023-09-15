@@ -10,3 +10,9 @@ C:\Users\KVINA\Documents\AutoVLTK2\AutoVLTK2\LibraryHelper\obj\Debug\LibraryHelp
 C:\Users\KVINA\Documents\AutoVLTK2\AutoVLTK2\LibraryHelper\obj\Debug\LibraryHelper.csproj.CoreCompileInputs.cache
 C:\Users\KVINA\Documents\AutoVLTK2\AutoVLTK2\LibraryHelper\obj\Debug\LibraryHelper.dll
 C:\Users\KVINA\Documents\AutoVLTK2\AutoVLTK2\LibraryHelper\obj\Debug\LibraryHelper.pdb
+D:\Github\CheatVL2\AutoVLTK2\LibraryHelper\bin\Debug\LibraryHelper.dll
+D:\Github\CheatVL2\AutoVLTK2\LibraryHelper\bin\Debug\LibraryHelper.pdb
+D:\Github\CheatVL2\AutoVLTK2\LibraryHelper\obj\Debug\LibraryHelper.csproj.AssemblyReference.cache
+D:\Github\CheatVL2\AutoVLTK2\LibraryHelper\obj\Debug\LibraryHelper.csproj.CoreCompileInputs.cache
+D:\Github\CheatVL2\AutoVLTK2\LibraryHelper\obj\Debug\LibraryHelper.dll
+D:\Github\CheatVL2\AutoVLTK2\LibraryHelper\obj\Debug\LibraryHelper.pdb

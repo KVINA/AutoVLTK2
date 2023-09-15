@@ -1,0 +1,6 @@
+20230915-205558<DEBUG:00000F58>: cmd	-d -f "C:\Users\Developer Net\Desktop\Vl2\minidump\373b60b4-cfee-4c46-bc50-938472c7f840.xml" -r "C:\Users\Developer Net\Desktop\Vl2\so2game.exe"
+20230915-205558<DEBUG:00000F58>: KGLOG_CHECK_ERROR(nRetCode) at line 119 in Product::LoadProduct
+20230915-205558<DEBUG:00000F58>: KGLOG_CHECK_ERROR(nRetCode) at line 122 in Product::LoadProduct
+20230915-205558<DEBUG:00000F58>: KGLOG_CHECK_ERROR(nRetCode) at line 103 in Collection::Init
+20230915-205558<DEBUG:00000F58>: KGLOG_CHECK_ERROR(nRetCode) at line 106 in Collection::Init
+20230915-205605<DEBUG:00000F58>: KGLOG_PROCESS_SUCCESS(nRetCode == WinFormCancel && !pCollection->IsForceSend()) at line 68 in WinMain

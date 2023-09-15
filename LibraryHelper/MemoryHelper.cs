@@ -28,6 +28,12 @@ namespace LibraryHelper
         const int WM_SETTEXT = 0x000C;
         const int WM_CHAR = 0x0102;
 
+        [DllImport("user32.dll")]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindowTitle);
+
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
 
@@ -79,6 +85,21 @@ namespace LibraryHelper
         #endregion
 
         #region Public
+
+        public static bool WinWait(IntPtr hWnd,string lpszWindowTitle, int dwTimeOut = 5000)
+        {
+            var _timestart = DateTime.Now;
+
+            while ((DateTime.Now - _timestart).TotalSeconds < dwTimeOut)
+            {
+                var hWait = FindWindowEx(hWnd,IntPtr.Zero, null, lpszWindowTitle);
+                if (hWait != IntPtr.Zero)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public static void PossKey(Process process, string value, int TimeSend = 100)
         {
             IntPtr hWnd = process.MainWindowHandle;
@@ -193,7 +214,6 @@ namespace LibraryHelper
             byte[] bytes = BitConverter.GetBytes(value);
             return WriteProcessMemory(hProcess, lpBaseAddress, bytes, bytes.Length, IntPtr.Zero);
         }
-
         public static bool Write_Byte(IntPtr hProcess, IntPtr lpBaseAddress, byte[] value)
         {
             return WriteProcessMemory(hProcess, lpBaseAddress, value, value.Length, IntPtr.Zero);

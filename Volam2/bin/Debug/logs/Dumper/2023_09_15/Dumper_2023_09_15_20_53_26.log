@@ -1,0 +1,5 @@
+20230915-205326<DEBUG:00000494>: KGLOG_PROCESS_ERROR(m_hModule) at line 24 in DebugHelp::Init
+20230915-205326<DEBUG:00000494>: KGLOG_PROCESS_ERROR(nRetCode) at line 39 in SystemDumpFile::Init
+20230915-205326<DEBUG:00000494>: √ª”–’“µΩ¿∂∆¡Dump
+20230915-205326<DEBUG:00000494>: KGLOG_PROCESS_SUCCESS(!nSendActiveMachineFlag && !nSendExceptionNotCapture) at line 215 in Dumper::ProcessActiveMachineAndExceptionNotCapture
+20230915-205326<DEBUG:00000494>: Dumper Init:Success

@@ -77,10 +77,6 @@ namespace Volam2
             IntPtr ptrUser = MemoryHelper.Read_Offset(hProcess, AbsAddress(process, 0x0095370C), new int[] { 0x2E8 });
             byte[] byteUser = Encoding.ASCII.GetBytes(username);
 
-            //Write User 
-            MemoryHelper.Write_Byte(hProcess, ptrUser, byteUser);            
-            Thread.Sleep(100);
-
             //Call TabUser
             IntPtr ptrTabUser = MemoryHelper.Read_Offset(hProcess, AbsAddress(process, 0x9536F8), new int[] { 0X68, 0x1CC });
             byte[] hTabUser = BitConverter.GetBytes((uint)ptrTabUser);
@@ -93,6 +89,7 @@ namespace Volam2
             MemoryHelper.Call_Function(hProcess, byteTabUser);
             MemoryHelper.PossKey(process, username,10);
 
+            Thread.Sleep(200);
             //Call TabPass
             IntPtr ptrTabPass = MemoryHelper.Read_Offset(hProcess, AbsAddress(process, 0x9536F8), new int[] { 0X68, 0x308 });
             byte[] hTabPass = BitConverter.GetBytes((uint)ptrTabPass);

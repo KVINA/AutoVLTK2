@@ -1,0 +1,4 @@
+20230915-205626<DEBUG:00000384>: KGLOG_PROCESS_ERROR(m_hModule) at line 24 in DebugHelp::Init
+20230915-205626<DEBUG:00000384>: KGLOG_PROCESS_SUCCESS(!nSendActiveMachineFlag && !nSendExceptionNotCapture) at line 215 in Dumper::ProcessActiveMachineAndExceptionNotCapture
+20230915-205626<DEBUG:00000384>: Dumper Init:Success
+20230915-205629<DEBUG:00000384>: Dumper Unit
