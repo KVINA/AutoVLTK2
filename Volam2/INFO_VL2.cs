@@ -1,9 +1,11 @@
 ﻿using LibraryHelper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Volam2
@@ -38,7 +40,7 @@ namespace Volam2
                                                 0xFF,0xD0, //call eax
                                                 0xC3                          // RET
                                             };
-            
+
             // Sử dụng mã hóa Windows-1258 để chuyển đổi chuỗi TCVN3 thành mảng byte
             string tcvn3_CMC = FontsHelper.UnicodeToTCVN3(cmc.CMC_NAME); // Chuỗi TCVN3 bạn muốn chuyển đổi
             string tcvn3_Server = FontsHelper.UnicodeToTCVN3(server.ServerName); // Chuỗi TCVN3 bạn muốn chuyển đổi
@@ -64,6 +66,38 @@ namespace Volam2
             //Giải phóng bộ nhớ cấp 
             //MemoryHelper.VirtualFree(hProcess, hAlloc);
         }
+        public static IntPtr AbsAddress(Process process, int AddressPoint)
+        {
+            IntPtr AbsoluteAddress = IntPtr.Add(process.MainModule.BaseAddress, AddressPoint);
+            return AbsoluteAddress;
+        }
+        public static void LoginGame(Process process,IntPtr hProcess, string username, string password)
+        {
+            var x = AbsAddress(process,0x942E14);
+            IntPtr ptrUser = MemoryHelper.Read_Offset(hProcess, AbsAddress(process, 0x0095370C), new int[] { 0x2E8 });
+            IntPtr ptrPass = MemoryHelper.Read_Offset(hProcess, AbsAddress(process, 0x941794), new int[] { 0X424 });
+            byte[] byteUser = Encoding.ASCII.GetBytes(username);
+            byte[] bytePass = Encoding.ASCII.GetBytes(password);
+
+            //Write User + Pass
+            MemoryHelper.Write_Byte(hProcess, ptrUser, byteUser);
+            Thread.Sleep(1000);
+            MemoryHelper.Write_Byte(hProcess, ptrPass, bytePass);
+            Thread.Sleep(1000);
+            //Call TabPass
+            IntPtr ptrTabPass = MemoryHelper.Read_Offset(hProcess, AbsAddress(process, 0x9536F8), new int[] { 0X68, 0x308 });
+            byte[] byteTabPass = BitConverter.GetBytes((uint)ptrTabPass);
+            var byteTab = new byte[] { 0x68, byteTabPass[0], byteTabPass[1], byteTabPass[2], byteTabPass[3],  // push 000000
+                                          0xB8, 0xF0, 0x20, 0x64, 0x00,                                       // mov eax, 006420F0
+                                          0xFF,0xD0,                                                          //call eax
+                                          0x83, 0xC4, 0x04,                                                    // add esp, 04
+                                          0xC3                                                                // RET
+                                        };
+            MemoryHelper.Call_Function(hProcess, byteTab);
+            Thread.Sleep(1000);
+            MemoryHelper.PossEnter(hProcess);//Send Enter
+        }
+
         public static List<ServerInfo> ListServer(CumMayChu cmc)
         {
             var myList = new List<ServerInfo>();

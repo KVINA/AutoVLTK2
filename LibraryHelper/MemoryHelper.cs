@@ -21,7 +21,9 @@ namespace LibraryHelper
         #region PRIVATE USE WIN API
         // Định nghĩa hằng số cho quyền truy cập vào quy trình
         public const uint PROCESS_ALL_ACCESS = 0x1F0FFFu;//0x1F0FFF
-
+        const int WM_KEYDOWN = 0x0100;
+        const int WM_KEYUP = 0x0101;
+        const int VK_RETURN = 0x0D;
 
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
@@ -59,10 +61,31 @@ namespace LibraryHelper
 
         [DllImport("kernel32.dll")]
         private static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int nSize, [Out] IntPtr lpNumberOfBytesWritten);
+        
+        [DllImport("user32.dll")]
+        static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
+        [DllImport("user32.dll")]
+        static extern IntPtr SetActiveWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        static extern bool PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
         #endregion
 
         #region Public
+        public static void SendEnter(IntPtr hProcess)
+        {
+            SetActiveWindow(hProcess);
+            // Gửi sự kiện KeyDown và KeyUp cho phím Enter
+            SendMessage(hProcess, WM_KEYDOWN, (IntPtr)VK_RETURN, IntPtr.Zero);
+            SendMessage(hProcess, WM_KEYUP, (IntPtr)VK_RETURN, IntPtr.Zero);
+        }
+
+        public static void PossEnter(IntPtr hProcess)
+        {
+            PostMessage(hProcess, WM_KEYDOWN, (IntPtr)VK_RETURN, IntPtr.Zero);
+            PostMessage(hProcess, WM_KEYUP, (IntPtr)VK_RETURN, IntPtr.Zero);
+        }
 
         public static IntPtr GetHandleProcess(int id)
         {

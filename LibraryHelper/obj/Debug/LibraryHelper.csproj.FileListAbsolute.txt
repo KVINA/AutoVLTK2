@@ -4,3 +4,9 @@ D:\Project\LibraryHelper\obj\Debug\LibraryHelper.csproj.AssemblyReference.cache
 D:\Project\LibraryHelper\obj\Debug\LibraryHelper.csproj.CoreCompileInputs.cache
 D:\Project\LibraryHelper\obj\Debug\LibraryHelper.dll
 D:\Project\LibraryHelper\obj\Debug\LibraryHelper.pdb
+C:\Users\KVINA\Documents\AutoVLTK2\AutoVLTK2\LibraryHelper\bin\Debug\LibraryHelper.dll
+C:\Users\KVINA\Documents\AutoVLTK2\AutoVLTK2\LibraryHelper\bin\Debug\LibraryHelper.pdb
+C:\Users\KVINA\Documents\AutoVLTK2\AutoVLTK2\LibraryHelper\obj\Debug\LibraryHelper.csproj.AssemblyReference.cache
+C:\Users\KVINA\Documents\AutoVLTK2\AutoVLTK2\LibraryHelper\obj\Debug\LibraryHelper.csproj.CoreCompileInputs.cache
+C:\Users\KVINA\Documents\AutoVLTK2\AutoVLTK2\LibraryHelper\obj\Debug\LibraryHelper.dll
+C:\Users\KVINA\Documents\AutoVLTK2\AutoVLTK2\LibraryHelper\obj\Debug\LibraryHelper.pdb
