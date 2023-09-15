@@ -75,27 +75,38 @@ namespace Volam2
         {
             var x = AbsAddress(process,0x942E14);
             IntPtr ptrUser = MemoryHelper.Read_Offset(hProcess, AbsAddress(process, 0x0095370C), new int[] { 0x2E8 });
-            IntPtr ptrPass = MemoryHelper.Read_Offset(hProcess, AbsAddress(process, 0x941794), new int[] { 0X424 });
             byte[] byteUser = Encoding.ASCII.GetBytes(username);
-            byte[] bytePass = Encoding.ASCII.GetBytes(password);
 
-            //Write User + Pass
-            MemoryHelper.Write_Byte(hProcess, ptrUser, byteUser);
-            Thread.Sleep(1000);
-            MemoryHelper.Write_Byte(hProcess, ptrPass, bytePass);
-            Thread.Sleep(1000);
+            //Write User 
+            MemoryHelper.Write_Byte(hProcess, ptrUser, byteUser);            
+            Thread.Sleep(100);
+
+            //Call TabUser
+            IntPtr ptrTabUser = MemoryHelper.Read_Offset(hProcess, AbsAddress(process, 0x9536F8), new int[] { 0X68, 0x1CC });
+            byte[] hTabUser = BitConverter.GetBytes((uint)ptrTabUser);
+            var byteTabUser = new byte[] { 0x68, hTabUser[0], hTabUser[1], hTabUser[2], hTabUser[3],  // push hTabUser
+                                          0xB8, 0xF0, 0x20, 0x64, 0x00,                               // mov eax, 006420F0
+                                          0xFF,0xD0,                                                  // call eax
+                                          0x83, 0xC4, 0x04,                                           // add esp, 04
+                                          0xC3                                                        // RET
+                                        };
+            MemoryHelper.Call_Function(hProcess, byteTabUser);
+            MemoryHelper.PossKey(process, username,10);
+
             //Call TabPass
             IntPtr ptrTabPass = MemoryHelper.Read_Offset(hProcess, AbsAddress(process, 0x9536F8), new int[] { 0X68, 0x308 });
-            byte[] byteTabPass = BitConverter.GetBytes((uint)ptrTabPass);
-            var byteTab = new byte[] { 0x68, byteTabPass[0], byteTabPass[1], byteTabPass[2], byteTabPass[3],  // push 000000
-                                          0xB8, 0xF0, 0x20, 0x64, 0x00,                                       // mov eax, 006420F0
-                                          0xFF,0xD0,                                                          //call eax
-                                          0x83, 0xC4, 0x04,                                                    // add esp, 04
-                                          0xC3                                                                // RET
+            byte[] hTabPass = BitConverter.GetBytes((uint)ptrTabPass);
+            var byteTabPass = new byte[] { 0x68, hTabPass[0], hTabPass[1], hTabPass[2], hTabPass[3],  // push hTabPass
+                                          0xB8, 0xF0, 0x20, 0x64, 0x00,                               // mov eax, 006420F0
+                                          0xFF,0xD0,                                                  // call eax
+                                          0x83, 0xC4, 0x04,                                           // add esp, 04
+                                          0xC3                                                        // RET
                                         };
-            MemoryHelper.Call_Function(hProcess, byteTab);
-            Thread.Sleep(1000);
-            MemoryHelper.PossEnter(hProcess);//Send Enter
+            MemoryHelper.Call_Function(hProcess, byteTabPass);        
+            MemoryHelper.PossKey(process, password,10);//Write Pass
+
+            //Send Enter
+            MemoryHelper.PossEnter(process);
         }
 
         public static List<ServerInfo> ListServer(CumMayChu cmc)

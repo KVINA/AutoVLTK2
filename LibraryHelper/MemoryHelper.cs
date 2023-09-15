@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LibraryHelper
@@ -24,6 +25,8 @@ namespace LibraryHelper
         const int WM_KEYDOWN = 0x0100;
         const int WM_KEYUP = 0x0101;
         const int VK_RETURN = 0x0D;
+        const int WM_SETTEXT = 0x000C;
+        const int WM_CHAR = 0x0102;
 
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
@@ -66,6 +69,9 @@ namespace LibraryHelper
         static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll")]
+        static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, string lParam);
+
+        [DllImport("user32.dll")]
         static extern IntPtr SetActiveWindow(IntPtr hWnd);
 
         [DllImport("user32.dll")]
@@ -73,18 +79,30 @@ namespace LibraryHelper
         #endregion
 
         #region Public
-        public static void SendEnter(IntPtr hProcess)
+        public static void PossKey(Process process, string value, int TimeSend = 100)
         {
-            SetActiveWindow(hProcess);
-            // Gửi sự kiện KeyDown và KeyUp cho phím Enter
-            SendMessage(hProcess, WM_KEYDOWN, (IntPtr)VK_RETURN, IntPtr.Zero);
-            SendMessage(hProcess, WM_KEYUP, (IntPtr)VK_RETURN, IntPtr.Zero);
+            IntPtr hWnd = process.MainWindowHandle;
+            // Gửi chuỗi Unicode vào cửa sổ chính của tiến trình
+            foreach (char c in value)
+            {
+                PostMessage(hWnd, WM_CHAR, (IntPtr)c, IntPtr.Zero);
+                // Đợi một chút trước khi gửi ký tự tiếp theo (tùy chỉnh thời gian chờ)
+                Thread.Sleep(TimeSend);
+            }
         }
 
-        public static void PossEnter(IntPtr hProcess)
+        public static void SendEnter(Process process)
         {
-            PostMessage(hProcess, WM_KEYDOWN, (IntPtr)VK_RETURN, IntPtr.Zero);
-            PostMessage(hProcess, WM_KEYUP, (IntPtr)VK_RETURN, IntPtr.Zero);
+            // Gửi sự kiện KeyDown và KeyUp cho phím Enter
+            SendMessage(process.MainWindowHandle, WM_KEYDOWN, (IntPtr)VK_RETURN, IntPtr.Zero);
+            SendMessage(process.MainWindowHandle, WM_KEYUP, (IntPtr)VK_RETURN, IntPtr.Zero);
+        }
+
+        public static void PossEnter(Process process)
+        {
+            // Gửi sự kiện KeyDown và KeyUp cho phím Enter
+            PostMessage(process.MainWindowHandle, WM_KEYDOWN, (IntPtr)VK_RETURN, IntPtr.Zero);
+            PostMessage(process.MainWindowHandle, WM_KEYUP, (IntPtr)VK_RETURN, IntPtr.Zero);
         }
 
         public static IntPtr GetHandleProcess(int id)
