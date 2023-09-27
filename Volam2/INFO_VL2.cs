@@ -90,6 +90,7 @@ namespace Volam2
             MemoryHelper.PossKey(process, username,10);
 
             Thread.Sleep(200);
+
             //Call TabPass
             IntPtr ptrTabPass = MemoryHelper.Read_Offset(hProcess, AbsAddress(process, 0x9536F8), new int[] { 0X68, 0x308 });
             byte[] hTabPass = BitConverter.GetBytes((uint)ptrTabPass);
@@ -104,6 +105,44 @@ namespace Volam2
 
             //Send Enter
             MemoryHelper.PossEnter(process);
+
+            //Đồng ý với điều khoản sử dụng
+            //IntPtr hAccept = MemoryHelper.Read_Offset(hProcess, AbsAddress(process, 0x00944AD4), new int[] { 0x204,0x638});
+
+            Thread.Sleep(5000);
+            //An phan dong y voi dieu khoan su dung
+            IntPtr hAccept = AbsAddress(process, 0x0094F424);
+            MemoryHelper.Write_Uint(hProcess,hAccept, 0);
+        }
+
+        public static void SelectFigure(IntPtr hProcess,int idFigure = 0)
+        {
+            byte index = 0x0;
+            switch (idFigure)
+            {
+                case 0:
+                    index = 0x00;
+                    break;
+                case 1:
+                    index = 0x01;
+                    break;
+                case 2:
+                    index = 0x02;
+                    break;
+                default:
+                    index = 0x0;
+                    break;
+            }
+
+            byte[] hSelectFigure = new byte[]
+            {
+                0x68,index, 0x00,0x00,0x00,
+                0xB9, 0x88, 0xBA, 0xD3, 0x00, //mov ecx,00D3BA88
+                0xB8, 0x40, 0x22, 0x63, 0x00, //move eax,00632240
+                0xFF,0xD0,                      //Call eax
+                0xC3
+            };
+            MemoryHelper.Call_Function(hProcess, hSelectFigure);
         }
 
         public static List<ServerInfo> ListServer(CumMayChu cmc)

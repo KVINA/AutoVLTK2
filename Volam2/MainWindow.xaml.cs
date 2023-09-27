@@ -42,9 +42,10 @@ namespace Volam2
             {
                 var process = new Process();
                 process.StartInfo.FileName = "so2game.exe";
-                process.StartInfo.WorkingDirectory = "C:\\Users\\Developer Net\\Desktop\\Vl2";
+                process.StartInfo.WorkingDirectory = "D:\\Game\\Volam2";
                 process.Start();
                 process.WaitForInputIdle();
+
                 // Định danh tiến trình đích bằng ProcessID
                 //var process = Process.GetProcessesByName("so2game").First();
                 // Mở tiến trình đích
@@ -53,7 +54,12 @@ namespace Volam2
                 INFO_VL2.Call_StartGame(hProcess);
                 
                 INFO_VL2.Call_SelectServer(hProcess, cmc, server);
+
+                //Nhập UserPass
                 INFO_VL2.LoginGame(process, hProcess, txt_account.Text.Trim(), txt_password.Password.Trim());
+            
+                //Chọn nhân vật
+                INFO_VL2.SelectFigure(hProcess,2);
             }
             else
             {

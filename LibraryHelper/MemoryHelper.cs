@@ -23,6 +23,7 @@ namespace LibraryHelper
         // Định nghĩa hằng số cho quyền truy cập vào quy trình
         public const uint PROCESS_ALL_ACCESS = 0x1F0FFFu;//0x1F0FFF
         const int WM_KEYDOWN = 0x0100;
+        const int VK_ESCAPE = 0x1B;
         const int WM_KEYUP = 0x0101;
         const int VK_RETURN = 0x0D;
         const int WM_SETTEXT = 0x000C;
@@ -126,6 +127,13 @@ namespace LibraryHelper
             PostMessage(process.MainWindowHandle, WM_KEYUP, (IntPtr)VK_RETURN, IntPtr.Zero);
         }
 
+        public static void PossESC(Process process)
+        {
+            // Gửi sự kiện KeyDown và KeyUp cho phím ESC
+            PostMessage(process.MainWindowHandle, WM_KEYDOWN, (IntPtr)0x01, IntPtr.Zero);
+            PostMessage(process.MainWindowHandle, WM_KEYUP, (IntPtr)0x01, IntPtr.Zero);
+        }
+
         public static IntPtr GetHandleProcess(int id)
         {
             var handle = OpenProcess(PROCESS_ALL_ACCESS, false, id);
@@ -184,7 +192,6 @@ namespace LibraryHelper
         }
         public static IntPtr Read_Offset(IntPtr hProcess, IntPtr baseAddress, int[] pointer)
         {
-            IntPtr offset = IntPtr.Zero;
             foreach (int item in pointer)
             {
                 if (offset == IntPtr.Zero)
@@ -193,9 +200,10 @@ namespace LibraryHelper
                 }
                 else
                 {
-                    offset = IntPtr.Add(Read_IntPtr(hProcess,  offset),item);
+                    offset = IntPtr.Add(Read_IntPtr(hProcess, offset), item);
                 }
             }
+
             return offset;
         }
         public static bool Write_Float(IntPtr hProcess, IntPtr lpBaseAddress, float value)
